@@ -1,4 +1,5 @@
 # Architecture
+![Semih_Altintas_c4_model drawio](https://github.com/user-attachments/assets/461d97c9-f7ae-4b59-9472-d898f4d9445f)
 
 ## Gebruiker
 **Rol:**  

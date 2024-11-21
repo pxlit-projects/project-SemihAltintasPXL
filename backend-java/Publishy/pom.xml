@@ -27,6 +27,7 @@
         <module>post-service</module>
         <module>review-service</module>
         <module>comment-service</module>
+        <module>gateway-service</module>
     </modules>
     <scm>
         <connection/>

@@ -11,11 +11,18 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
 
-  createPost(postRequest: any): Observable<any> {
+  createPostAsConcept(postRequest: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
 
-    return this.http.post(this.baseUrl, postRequest, { headers });
+    return this.http.post(this.baseUrl + '/concept', postRequest, { headers });
+  }
+
+  getAllPosts(): Observable<any> {
+    return this.http.get(`${this.baseUrl}`);
+  }
+  approvePost(id: number): Observable<void> {
+    return this.http.put<void>(`${this.baseUrl}/approve/${id}`, {});
   }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-post',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './post.component.css'
 })
 export class PostComponent {
-
+  
 }

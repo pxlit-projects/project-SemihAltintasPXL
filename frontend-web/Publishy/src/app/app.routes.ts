@@ -1,7 +1,15 @@
-import { Routes } from '@angular/router';
-import { PostComponent } from './components/post/post.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { CreatePostComponent } from './components/create-post/create-post.component';
+import { AllPostsComponent } from './components/all-posts/all-posts.component';
 
 export const routes: Routes = [
-    { path: '', component: PostComponent}
-
+  { path: 'create-post', component: CreatePostComponent },
+  { path: 'all-posts', component: AllPostsComponent },
 ];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

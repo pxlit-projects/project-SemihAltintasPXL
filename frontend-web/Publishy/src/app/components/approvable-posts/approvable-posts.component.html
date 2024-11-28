@@ -1,0 +1,31 @@
+@if (this.editingPostId === null) {
+<div class="posts-container">
+    @for (post of posts; track posts) {
+    <div class="post-card">
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.content }}</p>
+        <p><strong>Author:</strong> {{ post.author }}</p>
+        <p><strong>Created:</strong> {{ post.created }}</p>
+        <button class="btn-edit" (click)="startEditing(post)">Edit</button>
+    </div>
+    }
+</div>
+} 
+@else {
+    <div class="edit-form-container">
+        <form [formGroup]="editForm" (ngSubmit)="saveEdit()">
+            <div class="form-group">
+              <label for="title">Title:</label>
+              <input id="title" formControlName="title" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="content">Content:</label>
+              <textarea id="content" formControlName="content" class="form-control"></textarea>
+            </div>
+            <div class="button-group">
+              <button type="submit" class="btn btn-primary">Save</button>
+              <button type="button" (click)="cancelEdit()" class="btn btn-secondary">Cancel</button>
+            </div>
+        </form>
+    </div>
+}

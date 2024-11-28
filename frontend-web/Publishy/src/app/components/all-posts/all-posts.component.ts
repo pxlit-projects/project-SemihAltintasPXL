@@ -15,7 +15,8 @@ export class AllPostsComponent implements OnInit {
   constructor(private postService: PostService) { }
 
   ngOnInit(): void {
-    this.postService.getAllPosts().subscribe(data => {
+    this.postService.getAllApprovedPosts().subscribe(data => {
+      console.log(data)
       this.posts = data;
     }, error => {
       console.error('Error fetching posts', error);

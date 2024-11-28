@@ -17,7 +17,7 @@ export class CreatePostComponent {
       title: [''],
       content: [''],
       author: [''],
-      created: [new Date()]
+      created: [new Date()],
     });
   }
 

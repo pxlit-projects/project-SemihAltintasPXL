@@ -16,6 +16,8 @@ export class ApprovablePostsComponent implements OnInit {
   posts: any[] = [];
   editForm: FormGroup;
   editingPostId: number | null = null;
+  filterType: string = '';
+  filterValue: string = '';
 
   constructor(private postService: PostService, private fb: FormBuilder) {
     this.editForm = this.fb.group({
@@ -58,5 +60,18 @@ export class ApprovablePostsComponent implements OnInit {
 
   cancelEdit(): void {
     this.editingPostId = null;
+  }
+  filteredPosts() {
+    return this.posts.filter(post => {
+      const filterValueLower = this.filterValue.toLowerCase();
+      if (this.filterType === 'content') {
+        return post.content && post.content.toLowerCase().includes(filterValueLower);
+      } else if (this.filterType === 'author') {
+        return post.author && post.author.toLowerCase().includes(filterValueLower);
+      } else if (this.filterType === 'date') {
+        return post.created === this.filterValue;
+      }
+      return true;
+    });
   }
 }

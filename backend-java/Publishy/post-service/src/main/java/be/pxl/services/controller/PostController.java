@@ -5,6 +5,7 @@ import be.pxl.services.domain.dto.PostResponse;
 import be.pxl.services.exception.PostNotFoundException;
 import be.pxl.services.services.IPostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

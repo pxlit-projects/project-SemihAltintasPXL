@@ -28,6 +28,8 @@
         <module>review-service</module>
         <module>comment-service</module>
         <module>gateway-service</module>
+        <module>notification-service</module>
+        <module>messaging-service</module>
     </modules>
     <scm>
         <connection/>

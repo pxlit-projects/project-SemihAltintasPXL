@@ -93,3 +93,40 @@
     box-shadow: 0 0 0 3px rgba(0, 212, 219, 0.5);
     transition: background-color 0.3s ease;
   }
+  .filter-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+  
+  .filter-container select,
+  .filter-container input {
+    padding: 8px;
+    border: 1px solid #6b7280;
+    border-radius: 4px;
+    outline: none;
+  }
+  
+  .filter-container select {
+    background-color: rgba(0, 212, 219, 0.5);
+    color: #3b82f6;
+  }
+  
+  .filter-container input[type="text"] {
+    background-color: rgba(0, 212, 219, 0.5);
+    color: #3b82f6;
+  }
+  
+  .filter-container input[type="date"] {
+    background-color: rgba(0, 212, 219, 0.5);
+    color: #3b82f6;
+  }
+  
+  .filter-container select:focus,
+  .filter-container input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 5px rgba(0, 212, 219, 0.5);
+  }

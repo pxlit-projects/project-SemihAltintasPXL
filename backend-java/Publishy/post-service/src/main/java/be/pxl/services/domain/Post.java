@@ -3,6 +3,7 @@ package be.pxl.services.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,7 +18,7 @@ public class Post {
     private String title;
     private String content;
     private String author;
-    private LocalDateTime created;
+    private LocalDate created;
     @Enumerated(EnumType.STRING)
     private PostStatus status;
 }

@@ -1,5 +1,15 @@
+<div class="filter-container">
+  <select [(ngModel)]="filterType">
+    <option value="content">Content</option>
+    <option value="author">Author</option>
+    <option value="date">Date</option>
+  </select>
+  <input *ngIf="filterType !== 'date'" type="text" placeholder="Enter filter value" [(ngModel)]="filterValue">
+  <input *ngIf="filterType === 'date'" type="date" placeholder="Enter filter value" [(ngModel)]="filterValue">
+</div>
+
 <div class="posts-container">
-  <div *ngFor="let post of posts" class="post-card">
+  <div *ngFor="let post of filteredPosts()" class="post-card">
     <h2>{{ post.title }}</h2>
     <p>{{ post.content }}</p>
     <p><strong>Author:</strong> {{ post.author }}</p>

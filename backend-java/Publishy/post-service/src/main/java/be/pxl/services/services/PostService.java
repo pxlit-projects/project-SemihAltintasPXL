@@ -7,9 +7,11 @@ import be.pxl.services.domain.dto.PostResponse;
 import be.pxl.services.exception.PostNotFoundException;
 import be.pxl.services.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,6 +19,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostService implements IPostService{
     private final PostRepository postRepository;
+    private final RabbitTemplate rabbitTemplate;
+
 
 
     @Override
@@ -28,8 +32,9 @@ public class PostService implements IPostService{
     public PostResponse savePostAsConcept(PostRequest postRequest) {
         Post post = mapToPostResponse(postRequest);
         post.setStatus(PostStatus.PENDING);
-        post.setCreated(LocalDateTime.now());
+        post.setCreated(LocalDate.now());
         postRepository.save(post);
+        rabbitTemplate.convertAndSend("myQueue", "Added Post");
         return mapPostToPostResponse(post);
     }
 

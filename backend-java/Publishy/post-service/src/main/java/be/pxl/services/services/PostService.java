@@ -39,10 +39,19 @@ public class PostService implements IPostService{
     }
 
     @Override
-    public void changeConceptToApproved(long id) throws PostNotFoundException {
+    public Post changeConceptToApproved(long id) throws PostNotFoundException {
         Post post = postRepository.findById(id).orElseThrow(() -> new PostNotFoundException("Post not found with id: " + id));
         post.setStatus(PostStatus.APPROVED);
         postRepository.save(post);
+        return post;
+    }
+
+    @Override
+    public Post changeConceptToRejected(long id) throws PostNotFoundException {
+        Post post = postRepository.findById(id).orElseThrow(() -> new PostNotFoundException("Post not found with id: " + id));
+        post.setStatus(PostStatus.REJECTED);
+        postRepository.save(post);
+        return post;
     }
 
     @Override
@@ -59,6 +68,12 @@ public class PostService implements IPostService{
     public List<PostResponse> getPendingPosts() {
         return postRepository.findAllByStatus(PostStatus.PENDING).stream().map(this::mapPostToPostResponse).toList();
     }
+
+    @Override
+    public List<PostResponse> getRejectedPosts() {
+        return postRepository.findAllByStatus(PostStatus.REJECTED).stream().map(this::mapPostToPostResponse).toList();
+    }
+
 
     @Override
     public void updatePost(long id, PostRequest postRequest) throws PostNotFoundException {

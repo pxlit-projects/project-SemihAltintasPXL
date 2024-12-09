@@ -22,3 +22,111 @@
 .post-card p {
   margin: 0.5rem 0;
 }
+.edit-form-container {
+  background-color: #f3f4f6;
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #374151;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #3b82f6;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #2563eb;
+}
+
+.btn-secondary {
+  background-color: #9ca3af;
+  color: #ffffff;
+}
+
+.btn-secondary:hover {
+  background-color: #6b7280;
+}
+.btn-edit {
+  background-color: #00D4DB;
+  width: 10%;
+  height: 30px;
+  color: #ffffff;
+  border-radius: 6px; 
+}
+
+.btn-edit:hover {
+  background-color: #374151; 
+  color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 212, 219, 0.5);
+  transition: background-color 0.3s ease;
+}
+.filter-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.filter-container select,
+.filter-container input {
+  padding: 8px;
+  border: 1px solid #6b7280;
+  border-radius: 4px;
+  outline: none;
+}
+
+.filter-container select {
+  background-color: rgba(0, 212, 219, 0.5);
+  color: #3b82f6;
+}
+
+.filter-container input[type="text"] {
+  background-color: rgba(0, 212, 219, 0.5);
+  color: #3b82f6;
+}
+
+.filter-container input[type="date"] {
+  background-color: rgba(0, 212, 219, 0.5);
+  color: #3b82f6;
+}
+
+.filter-container select:focus,
+.filter-container input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 5px rgba(0, 212, 219, 0.5);
+}

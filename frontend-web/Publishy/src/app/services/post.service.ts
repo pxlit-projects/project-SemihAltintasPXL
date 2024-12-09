@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Post } from '../models/post.module';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +29,11 @@ export class PostService {
   getAllPendingPosts(): Observable<any> {
     return this.http.get(`${this.baseUrl}/pending`);
   }
-  approvePost(id: number): Observable<void> {
-    return this.http.put<void>(`${this.baseUrl}/approve/${id}`, {});
+  approvePost(id: number): Observable<Post> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.put<Post>(`${this.baseUrl}/approve/${id}`, {}, {headers });
   }
   updatePost(id: number, postRequest: any): Observable<void> {
     const headers = new HttpHeaders({

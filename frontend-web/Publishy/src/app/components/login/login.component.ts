@@ -23,15 +23,9 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   login(): void {
-    if (this.authService.login(this.username, this.password, this.role)) {
-      const role = this.authService.getUserRole();
-      if (role === 'editor') {
-        this.router.navigate(['/editor']);
-      } else if (role === 'user') {
-        this.router.navigate(['/user']);
-      }
-    } else {
-      this.errorMessage = 'Invalid username or password';
-    }
+    this.authService.login(this.username, this.password, this.role);
+    localStorage.setItem('role', this.authService.getUserRole());
+    localStorage.setItem('username', this.authService.getCurrentUser().username);
+    this.router.navigate(['/approved-posts']);
   }
 }

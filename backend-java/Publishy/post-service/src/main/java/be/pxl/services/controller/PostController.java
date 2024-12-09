@@ -1,5 +1,6 @@
 package be.pxl.services.controller;
 
+import be.pxl.services.domain.Post;
 import be.pxl.services.domain.dto.PostRequest;
 import be.pxl.services.domain.dto.PostResponse;
 import be.pxl.services.exception.PostNotFoundException;
@@ -30,9 +31,12 @@ public class PostController {
         return new ResponseEntity<>(postService.savePostAsConcept(postRequest), HttpStatus.CREATED);
     }
     @PutMapping("/approve/{id}")
-    public ResponseEntity<Void> changeConceptToApproved(@PathVariable long id) throws PostNotFoundException {
-        postService.changeConceptToApproved(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Post> changeConceptToApproved(@PathVariable long id) throws PostNotFoundException {
+        return new ResponseEntity<>(postService.changeConceptToApproved(id) , HttpStatus.OK);
+    }
+    @PutMapping("/approve/{id}")
+    public ResponseEntity<Post> changeConceptToRejected(@PathVariable long id) throws PostNotFoundException {
+        return new ResponseEntity<>(postService.changeConceptToRejected(id) , HttpStatus.OK);
     }
     @DeleteMapping
     public ResponseEntity<Void> deleteAllPosts() {

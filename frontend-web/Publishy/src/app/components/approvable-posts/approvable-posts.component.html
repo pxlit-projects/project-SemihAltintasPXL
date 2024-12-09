@@ -1,3 +1,5 @@
+<app-navbar></app-navbar>
+
 <div class="filter-container">
   <select [(ngModel)]="filterType">
     <option value="content">Content</option>
@@ -17,6 +19,7 @@
         <p><strong>Author:</strong> {{ post.author }}</p>
         <p><strong>Created:</strong> {{ post.created }}</p>
         <button class="btn-edit" (click)="startEditing(post)">Edit</button>
+        <button class="btn-approve" (click)="approvePost(post.id)">Approve</button>
     </div>
     }
 </div>

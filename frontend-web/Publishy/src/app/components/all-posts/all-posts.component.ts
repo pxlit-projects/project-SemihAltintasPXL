@@ -6,13 +6,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { FormsModule } from '@angular/forms';
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-all-posts',
   templateUrl: './all-posts.component.html',
   styleUrls: ['./all-posts.component.css'],
   standalone: true,
-  imports: [CommonModule, BrowserModule, FormsModule]
+  imports: [CommonModule, FormsModule, NavbarComponent]
 })
 export class AllPostsComponent implements OnInit {
   posts: any[] = [];

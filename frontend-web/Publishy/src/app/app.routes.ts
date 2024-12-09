@@ -9,7 +9,7 @@ export const routes: Routes = [
   { path: 'create-post', component: CreatePostComponent },
   { path: 'approved-posts', component: AllPostsComponent },
   { path: 'approvable-posts', component: ApprovablePostsComponent },
-  { path: '', component: LoginComponent }
+  { path: '', component: LoginComponent },
 ];
 
 @NgModule({

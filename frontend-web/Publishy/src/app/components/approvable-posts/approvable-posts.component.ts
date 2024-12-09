@@ -4,11 +4,12 @@ import { PostService } from '../../services/post.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-approvable-posts',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, NavbarComponent],
   templateUrl: './approvable-posts.component.html',
   styleUrls: ['./approvable-posts.component.css']
 })
@@ -28,6 +29,14 @@ export class ApprovablePostsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPendingPosts();
+  }
+  approvePost(postId: number): void {
+    console.log('Approving post', postId);
+    this.postService.approvePost(postId).subscribe(() => {
+      this.getPendingPosts();
+    }, error => {
+      console.error('Error approving post', error);
+    });
   }
 
   getPendingPosts(): void {

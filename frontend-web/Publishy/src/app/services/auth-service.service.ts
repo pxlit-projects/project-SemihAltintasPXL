@@ -4,20 +4,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-  private users = [
-    { username: 'editor', password: 'editor123', role: 'editor' },
-    { username: 'user', password: 'user123', role: 'user' }
-  ];
-
   private currentUser: any = null;
 
   login(username: string, password: string, role: string): boolean {
-    const user = this.users.find(u => u.username === username && u.password === password && u.role === role);
-    if (user) {
-      this.currentUser = user;
-      return true;
-    }
-    return false;
+    this.currentUser = { username, password, role };
+    return true;
   }
 
   logout(): void {

@@ -17,8 +17,8 @@ import lombok.NoArgsConstructor;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     private String reviewMessage;
     private String reviewAuthor;
-    private long postId;
+    private Long postId;
 }

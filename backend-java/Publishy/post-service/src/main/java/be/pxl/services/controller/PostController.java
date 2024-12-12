@@ -25,7 +25,7 @@ public class PostController {
         return new ResponseEntity<>(postService.getAllPosts(), HttpStatus.OK);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Post> getPostById(@PathVariable long id) throws PostNotFoundException {
+    public ResponseEntity<Post> getPostById(@PathVariable Long id) throws PostNotFoundException {
         return new ResponseEntity<>(postService.getPostById(id), HttpStatus.OK);
     }
 
@@ -62,7 +62,7 @@ public class PostController {
         return new ResponseEntity<>(postService.getRejectedPosts(), HttpStatus.OK);
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<Void> updatePost(@PathVariable long id, @RequestBody PostRequest postRequest) throws PostNotFoundException {
+    public ResponseEntity<Void> updatePost(@PathVariable Long id, @RequestBody PostRequest postRequest) throws PostNotFoundException {
         postService.updatePost(id, postRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }

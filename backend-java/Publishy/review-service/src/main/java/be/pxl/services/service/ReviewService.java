@@ -14,17 +14,16 @@ public class ReviewService implements IReviewService {
     private final RabbitTemplate rabbitTemplate;
 
     @Override
-    public void changeConceptToApproved(long postId) {
+    public void changeConceptToApproved(Long postId) {
+
         rabbitTemplate.convertAndSend("approvePostQueue", postId);
     }
 
     @Override
-    public void changeConceptToRejected(long postId, RejectPostRequest rejectPostRequest) {
+    public void changeConceptToRejected(Long postId, RejectPostRequest rejectPostRequest) {
         Review review = createReview(rejectPostRequest);
         rabbitTemplate.convertAndSend("rejectPostQueue", postId);
         reviewRepository.save(review);
-
-
     }
 
     @Override

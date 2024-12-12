@@ -38,21 +38,20 @@ public class PostService implements IPostService{
         rabbitTemplate.convertAndSend("myQueue", "Added Post");
         return mapPostToPostResponse(post);
     }
-
+    @Override
     @RabbitListener(queues = "approvePostQueue")
-    public Post changeConceptToApproved(long id) throws PostNotFoundException {
+    public void changeConceptToApproved(Long id) throws PostNotFoundException { //dont return anything here
         Post post = postRepository.findById(id).orElseThrow(() -> new PostNotFoundException("Post not found with id: " + id));
         post.setStatus(PostStatus.APPROVED);
         postRepository.save(post);
-        return post;
     }
 
     @Override
-    public Post changeConceptToRejected(long id) throws PostNotFoundException {
+    @RabbitListener(queues = "rejectPostQueue")
+    public void changeConceptToRejected(Long id) throws PostNotFoundException {
         Post post = postRepository.findById(id).orElseThrow(() -> new PostNotFoundException("Post not found with id: " + id));
         post.setStatus(PostStatus.REJECTED);
         postRepository.save(post);
-        return post;
     }
 
     @Override
@@ -75,7 +74,7 @@ public class PostService implements IPostService{
         return postRepository.findAllByStatus(PostStatus.REJECTED).stream().map(this::mapPostToPostResponse).toList();
     }
     @Override
-    public void updatePost(long id, PostRequest postRequest) throws PostNotFoundException {
+    public void updatePost(Long id, PostRequest postRequest) throws PostNotFoundException {
         Post post = postRepository.findById(id).orElseThrow(() -> new PostNotFoundException("Post not found with id: " + id));
         post.setTitle(postRequest.getTitle());
         post.setContent(postRequest.getContent());
@@ -83,7 +82,7 @@ public class PostService implements IPostService{
     }
 
     @Override
-    public Post getPostById(long id) throws PostNotFoundException {
+    public Post getPostById(Long id) throws PostNotFoundException {
         return postRepository.findById(id).orElseThrow(() -> new PostNotFoundException("Post not found with id: " + id));
     }
 

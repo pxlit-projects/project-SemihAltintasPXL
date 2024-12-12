@@ -14,6 +14,11 @@ public class QueueConfiguration {
     public Queue approvePostQueue(){
         return new Queue("approvePostQueue", false);
     }
+    @Bean
+    public Queue rejectPostQueue(){
+        return new Queue("rejectPostQueue", false);
+    }
+
 
 
 }

@@ -48,24 +48,6 @@ export class ApprovablePostsComponent implements OnInit {
     });
   }
 
-  rejectPost(postId: number): void {
-    /*
-    console.log('Rejecting post', postId);
-    this.postService.rejectPost(postId).subscribe(() => {
-      this.getPendingPosts();
-      this.snackBar.open('Post rejected successfully', 'Close', {
-        duration: 5000,
-      });
-    }, error => {
-      console.error('Error rejecting post', error);
-      this.snackBar.open('Error rejecting post', 'Close', {
-        duration: 5000,
-      });
-    });
-    */
-    
-  }
-
   getPendingPosts(): void {
     this.postService.getAllPendingPosts().subscribe(data => {
       this.posts = data;

@@ -11,13 +11,13 @@ import java.util.List;
 public interface IPostService {
     List<PostResponse> getAllPosts();
     PostResponse savePostAsConcept(PostRequest postRequest);
-    Post changeConceptToApproved(long id) throws PostNotFoundException;
-    Post changeConceptToRejected(long id) throws PostNotFoundException;
+    void changeConceptToApproved(Long id) throws PostNotFoundException;
+    void changeConceptToRejected(Long id) throws PostNotFoundException;
 
     void deleteAllPosts();
     List<PostResponse> getApprovedPosts();
     List<PostResponse> getPendingPosts();
     List<PostResponse> getRejectedPosts();
-    void updatePost(long id, PostRequest postRequest) throws PostNotFoundException;
-    Post getPostById(long id) throws PostNotFoundException;
+    void updatePost(Long id, PostRequest postRequest) throws PostNotFoundException;
+    Post getPostById(Long id) throws PostNotFoundException;
 }

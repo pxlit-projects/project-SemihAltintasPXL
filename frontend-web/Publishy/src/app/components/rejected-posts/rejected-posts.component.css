@@ -79,16 +79,15 @@
   .btn-secondary:hover {
     background-color: #6b7280;
   }
-  .btn-edit, .btn-approve, .btn-reject{
+  .btn-edit {
     background-color: #00D4DB;
     width: 10%;
     height: 30px;
     color: #ffffff;
     border-radius: 6px; 
-    margin: 1%;
   }
   
-  .btn-edit:hover, .btn-approve:hover, .btn-reject:hover {
+  .btn-edit:hover {
     background-color: #374151; 
     color: #ffffff;
     box-shadow: 0 0 0 3px rgba(0, 212, 219, 0.5);

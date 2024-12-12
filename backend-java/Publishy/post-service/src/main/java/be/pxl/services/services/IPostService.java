@@ -19,4 +19,5 @@ public interface IPostService {
     List<PostResponse> getPendingPosts();
     List<PostResponse> getRejectedPosts();
     void updatePost(long id, PostRequest postRequest) throws PostNotFoundException;
+    Post getPostById(long id) throws PostNotFoundException;
 }

@@ -1,15 +1,17 @@
+import { ReviewService } from './../../services/review.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PostService } from '../../services/post.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { NavbarComponent } from "../navbar/navbar.component";
+import { Router, RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-approvable-posts',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, NavbarComponent],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, NavbarComponent, MatSnackBarModule, RouterModule],
   templateUrl: './approvable-posts.component.html',
   styleUrls: ['./approvable-posts.component.css']
 })
@@ -20,7 +22,7 @@ export class ApprovablePostsComponent implements OnInit {
   filterType: string = '';
   filterValue: string = '';
 
-  constructor(private postService: PostService, private fb: FormBuilder) {
+  constructor(private postService: PostService, private fb: FormBuilder, private snackBar: MatSnackBar, private reviewService : ReviewService) {
     this.editForm = this.fb.group({
       title: ['', Validators.required],
       content: ['', Validators.required],
@@ -30,13 +32,38 @@ export class ApprovablePostsComponent implements OnInit {
   ngOnInit(): void {
     this.getPendingPosts();
   }
+
   approvePost(postId: number): void {
     console.log('Approving post', postId);
-    this.postService.approvePost(postId).subscribe(() => {
+    this.reviewService.approvePost(postId).subscribe(() => {
       this.getPendingPosts();
+      this.snackBar.open('Post approved successfully', 'Close', {
+        duration: 5000,
+      });
     }, error => {
       console.error('Error approving post', error);
+      this.snackBar.open('Error approving post', 'Close', {
+        duration: 5000,
+      });
     });
+  }
+
+  rejectPost(postId: number): void {
+    /*
+    console.log('Rejecting post', postId);
+    this.postService.rejectPost(postId).subscribe(() => {
+      this.getPendingPosts();
+      this.snackBar.open('Post rejected successfully', 'Close', {
+        duration: 5000,
+      });
+    }, error => {
+      console.error('Error rejecting post', error);
+      this.snackBar.open('Error rejecting post', 'Close', {
+        duration: 5000,
+      });
+    });
+    */
+    
   }
 
   getPendingPosts(): void {
@@ -61,8 +88,14 @@ export class ApprovablePostsComponent implements OnInit {
       this.postService.updatePost(this.editingPostId, this.editForm.value).subscribe(() => {
         this.getPendingPosts(); 
         this.editingPostId = null; 
+        this.snackBar.open('Post updated successfully', 'Close', {
+          duration: 5000,
+        });
       }, error => {
         console.error('Error updating post', error);
+        this.snackBar.open('Error updating post', 'Close', {
+          duration: 5000,
+        });
       });
     }
   }
@@ -70,6 +103,7 @@ export class ApprovablePostsComponent implements OnInit {
   cancelEdit(): void {
     this.editingPostId = null;
   }
+
   filteredPosts() {
     return this.posts.filter(post => {
       const filterValueLower = this.filterValue.toLowerCase();

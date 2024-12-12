@@ -6,7 +6,6 @@ import be.pxl.services.domain.dto.PostResponse;
 import be.pxl.services.exception.PostNotFoundException;
 import be.pxl.services.services.IPostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,19 +24,26 @@ public class PostController {
     public ResponseEntity<List<PostResponse>> getAllPosts() {
         return new ResponseEntity<>(postService.getAllPosts(), HttpStatus.OK);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Post> getPostById(@PathVariable long id) throws PostNotFoundException {
+        return new ResponseEntity<>(postService.getPostById(id), HttpStatus.OK);
+    }
 
     @PostMapping("/concept")
     public ResponseEntity savePostAsConcept(@RequestBody PostRequest postRequest) {
         return new ResponseEntity<>(postService.savePostAsConcept(postRequest), HttpStatus.CREATED);
     }
+    /*
     @PutMapping("/approve/{id}")
     public ResponseEntity<Post> changeConceptToApproved(@PathVariable long id) throws PostNotFoundException {
         return new ResponseEntity<>(postService.changeConceptToApproved(id) , HttpStatus.OK);
     }
-    @PutMapping("/approve/{id}")
+    @PutMapping("/reject/{id}")
     public ResponseEntity<Post> changeConceptToRejected(@PathVariable long id) throws PostNotFoundException {
         return new ResponseEntity<>(postService.changeConceptToRejected(id) , HttpStatus.OK);
     }
+
+     */
     @DeleteMapping
     public ResponseEntity<Void> deleteAllPosts() {
         postService.deleteAllPosts();
@@ -51,10 +57,13 @@ public class PostController {
     public ResponseEntity<List<PostResponse>> getPendingPosts() {
         return new ResponseEntity<>(postService.getPendingPosts(), HttpStatus.OK);
     }
+    @GetMapping("/rejected")
+    public ResponseEntity<List<PostResponse>> getRejectedPosts() {
+        return new ResponseEntity<>(postService.getRejectedPosts(), HttpStatus.OK);
+    }
     @PutMapping("/update/{id}")
     public ResponseEntity<Void> updatePost(@PathVariable long id, @RequestBody PostRequest postRequest) throws PostNotFoundException {
         postService.updatePost(id, postRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

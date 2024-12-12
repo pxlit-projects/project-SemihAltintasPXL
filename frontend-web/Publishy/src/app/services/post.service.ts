@@ -29,11 +29,23 @@ export class PostService {
   getAllPendingPosts(): Observable<any> {
     return this.http.get(`${this.baseUrl}/pending`);
   }
+  getAllRejectedPosts(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/rejected`);
+  }
+  getPostById(id: number): Observable<Post> {
+    return this.http.get<Post>(`${this.baseUrl}/${id}`);
+  }
   approvePost(id: number): Observable<Post> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
     return this.http.put<Post>(`${this.baseUrl}/approve/${id}`, {}, {headers });
+  }
+  rejectPost(id: number): Observable<Post> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.put<Post>(`${this.baseUrl}/reject/${id}`, {}, {headers });
   }
   updatePost(id: number, postRequest: any): Observable<void> {
     const headers = new HttpHeaders({

@@ -7,6 +7,7 @@ import be.pxl.services.domain.dto.PostResponse;
 import be.pxl.services.exception.PostNotFoundException;
 import be.pxl.services.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +39,7 @@ public class PostService implements IPostService{
         return mapPostToPostResponse(post);
     }
 
-    @Override
+    @RabbitListener(queues = "approvePostQueue")
     public Post changeConceptToApproved(long id) throws PostNotFoundException {
         Post post = postRepository.findById(id).orElseThrow(() -> new PostNotFoundException("Post not found with id: " + id));
         post.setStatus(PostStatus.APPROVED);
@@ -73,14 +74,17 @@ public class PostService implements IPostService{
     public List<PostResponse> getRejectedPosts() {
         return postRepository.findAllByStatus(PostStatus.REJECTED).stream().map(this::mapPostToPostResponse).toList();
     }
-
-
     @Override
     public void updatePost(long id, PostRequest postRequest) throws PostNotFoundException {
         Post post = postRepository.findById(id).orElseThrow(() -> new PostNotFoundException("Post not found with id: " + id));
         post.setTitle(postRequest.getTitle());
         post.setContent(postRequest.getContent());
         postRepository.save(post);
+    }
+
+    @Override
+    public Post getPostById(long id) throws PostNotFoundException {
+        return postRepository.findById(id).orElseThrow(() -> new PostNotFoundException("Post not found with id: " + id));
     }
 
     private PostResponse mapPostToPostResponse(Post post) {

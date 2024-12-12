@@ -6,11 +6,16 @@
       <li class="navbar-item">
         <a class="navbar-link" routerLink="/approved-posts">Approved Posts</a>
       </li>
+      <li class="navbar-item">
+        <a class="navbar-link" routerLink="/rejected-posts">Rejected Posts</a>
+      </li>
       @if (getRoleOfCurrentUser() != 'user') {
         <li class="navbar-item">
-          <a class="navbar-link" routerLink="/approvable-posts">Approvable Posts</a>
+          <a class="navbar-link" routerLink="/approvable-posts">Concept Posts</a>
         </li>
       }
-      
+      <li class="navbar-item">
+        <a class="navbar-link" (click)="logout()">Logout</a>
+      </li>
     </ul>
   </nav>

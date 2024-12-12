@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth-service.service';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { PostService } from '../../services/post.service';
@@ -13,7 +14,7 @@ import { NavbarComponent } from "../navbar/navbar.component";
 export class CreatePostComponent {
   postForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private postService: PostService) {
+  constructor(private fb: FormBuilder, private postService: PostService, private authService: AuthService) {
     this.postForm = this.fb.group({
       title: [''],
       content: [''],
@@ -24,6 +25,9 @@ export class CreatePostComponent {
 
   onSubmit() {
     if (this.postForm.valid) {
+      this.postForm.patchValue({
+        author: localStorage.getItem('username')
+      });
       this.postService.createPostAsConcept(this.postForm.value).subscribe(response => {
         console.log('Post created successfully', response);
       }, error => {

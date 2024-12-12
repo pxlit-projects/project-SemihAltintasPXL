@@ -20,6 +20,7 @@
         <p><strong>Created:</strong> {{ post.created }}</p>
         <button class="btn-edit" (click)="startEditing(post)">Edit</button>
         <button class="btn-approve" (click)="approvePost(post.id)">Approve</button>
+        <button [routerLink]="['/rejection-message', post.id]" class="btn-reject">Reject</button>
     </div>
     }
 </div>

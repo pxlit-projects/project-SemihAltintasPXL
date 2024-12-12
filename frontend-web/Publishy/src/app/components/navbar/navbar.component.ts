@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth-service.service';
 
 
@@ -12,12 +12,11 @@ import { AuthService } from '../../services/auth-service.service';
 })
 export class NavbarComponent {
 
-
-
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   logout(): void {
     this.authService.logout();
+    this.router.navigate(['']);
   }
   getRoleOfCurrentUser(): any {
     localStorage.getItem('role');

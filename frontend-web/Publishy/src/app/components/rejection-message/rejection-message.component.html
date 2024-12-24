@@ -1,24 +1,23 @@
-<app-navbar></app-navbar>
 <form [formGroup]="rejectionForm" class="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
     <div class="mb-4">
-        <label for="author" class="block text-gray-700 font-bold mb-2">Author:</label>
-        <input id="author" formControlName="author" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <label for="author" class="block text-gray-700 font-bold mb-2">Author:</label>
+      <input id="author" formControlName="author" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" readonly />
     </div>
     <div class="mb-4">
-        <label for="title" class="block text-gray-700 font-bold mb-2">Title:</label>
-        <input id="title" formControlName="title" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <label for="title" class="block text-gray-700 font-bold mb-2">Title:</label>
+      <input id="title" formControlName="title" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
     </div>
     <div class="mb-4">
-        <label for="content" class="block text-gray-700 font-bold mb-2">Content:</label>
-        <textarea id="content" formControlName="content" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+      <label for="content" class="block text-gray-700 font-bold mb-2">Content:</label>
+      <textarea id="content" formControlName="content" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
     </div>
     <div class="mb-4">
-        <label for="rejectionMessage" class="block text-gray-700 font-bold mb-2">Rejection Message:</label>
-        <textarea id="rejectionMessage" formControlName="rejectionMessage" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+      <label for="rejectionMessage" class="block text-gray-700 font-bold mb-2">Rejection Message:</label>
+      <textarea id="rejectionMessage" formControlName="rejectionMessage" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
     </div>
     <div class="flex justify-center">
-        <button (click)="rejectPost()" class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
-            Reject
-        </button>
+      <button (click)="rejectPost()" class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+        Reject
+      </button>
     </div>
-</form>
+  </form>

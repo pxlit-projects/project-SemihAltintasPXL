@@ -6,6 +6,7 @@ import { ApprovablePostsComponent } from './components/approvable-posts/approvab
 import { LoginComponent } from './components/login/login.component';
 import { RejectedPostsComponent } from './components/rejected-posts/rejected-posts.component';
 import { RejectionMessageComponent } from './components/rejection-message/rejection-message.component';
+import { CreateCommentComponent } from './components/create-comment/create-comment.component';
 
 export const routes: Routes = [
   { path: 'create-post', component: CreatePostComponent },
@@ -13,6 +14,7 @@ export const routes: Routes = [
   { path: 'approvable-posts', component: ApprovablePostsComponent },
   { path: 'rejected-posts', component: RejectedPostsComponent },
   { path: 'rejection-message/:id', component: RejectionMessageComponent },
+  { path: 'create-comment/:id', component: CreateCommentComponent },
   { path: '', component: LoginComponent },
 ];
 

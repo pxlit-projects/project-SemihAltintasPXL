@@ -17,5 +17,12 @@
     <p><strong>Author:</strong> {{ post.author }}</p>
     <p><strong>Created:</strong> {{ post.created }}</p>
     <p><strong>Status:</strong> {{ post.status }}</p>
+    @if (reviews[post.id]) {
+      <div>
+        <h3>Review</h3>
+        <p><strong>Author:</strong> {{ reviews[post.id].reviewAuthor }}</p>
+        <p><strong>Message:</strong> {{ reviews[post.id].message }}</p>
+      </div>
+    }
   </div>
 </div>

@@ -2,6 +2,7 @@ package be.pxl.services.service;
 
 import be.pxl.services.domain.Review;
 import be.pxl.services.domain.dto.RejectPostRequest;
+import be.pxl.services.domain.dto.ReviewResponse;
 import be.pxl.services.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -33,6 +34,18 @@ public class ReviewService implements IReviewService {
         review.setReviewAuthor(rejectPostRequest.getReviewAuthor());
         review.setReviewMessage(rejectPostRequest.getMessage());
         return review;
+    }
+    public ReviewResponse getReviewById(Long id) {
+        return reviewRepository.findByPostId(id).map(this::mapReviewToReviewResponse).orElse(null);
+    }
+
+    private ReviewResponse mapReviewToReviewResponse(Review review) {
+        ReviewResponse reviewResponse = new ReviewResponse();
+        reviewResponse.setId(review.getId());
+        reviewResponse.setPostId(review.getPostId());
+        reviewResponse.setReviewAuthor(review.getReviewAuthor());
+        reviewResponse.setReviewMessage(review.getReviewMessage());
+        return reviewResponse;
     }
 
 }

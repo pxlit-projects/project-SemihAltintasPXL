@@ -1,23 +1,17 @@
-import { Review } from './../../models/review.module';
-import { ReviewService } from './../../services/review.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { PostService } from '../../services/post.service';
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { NavbarComponent } from "../navbar/navbar.component";
-import { ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
-
-
+import { ReviewService } from './../../services/review.service';
+import { PostService } from './../../services/post.service';
+import { Review } from './../../models/review.module';
+import { NavbarComponent } from './../navbar/navbar.component';
 
 @Component({
   selector: 'app-rejection-message',
   templateUrl: './rejection-message.component.html',
   styleUrls: ['./rejection-message.component.css'],
-  imports: [CommonModule, NavbarComponent, ReactiveFormsModule , RouterModule ],
+  imports: [CommonModule, NavbarComponent, ReactiveFormsModule, RouterModule],
   standalone: true
 })
 export class RejectionMessageComponent implements OnInit {
@@ -25,12 +19,18 @@ export class RejectionMessageComponent implements OnInit {
   Post: any;
   rejectionForm: FormGroup;
 
-  constructor(private route: ActivatedRoute,private ReviewService: ReviewService ,private PostService: PostService, private fb: FormBuilder, private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private reviewService: ReviewService,
+    private postService: PostService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {
     this.rejectionForm = this.fb.group({
-      author: ['Default Author'],
-      title: ['Default Title'],
-      content: ['Default Content'],
-      rejectionMessage: ['Default Rejection Message']
+      author: ['Default Author', Validators.required],
+      title: ['Default Title', Validators.required],
+      content: ['Default Content', Validators.required],
+      rejectionMessage: ['Default Rejection Message', Validators.required]
     });
   }
 
@@ -40,7 +40,7 @@ export class RejectionMessageComponent implements OnInit {
   }
 
   getPostById(id: number): void {
-    this.PostService.getPostById(id).subscribe(post => {
+    this.postService.getPostById(id).subscribe(post => {
       this.Post = post;
       this.rejectionForm.patchValue({
         author: post.author,
@@ -50,16 +50,24 @@ export class RejectionMessageComponent implements OnInit {
       });
     });
   }
+
   rejectPost(): void {
-    const Review: Review = {
-      reviewAuthor: this.rejectionForm.value.reviewAuthor,
-      message: this.rejectionForm.value.rejectionMessage,
-      postId: this.id
-    };
-    this.ReviewService.rejectPost(this.id , Review).subscribe(response => {
-      console.log('Post rejected successfully');
-      //approvable-posts
-      this.router.navigate(['/approvable-posts']);
-    });
+    if (this.rejectionForm.valid) {
+      const review: Review = {
+        reviewAuthor: this.rejectionForm.get('author')?.value,
+        message: this.rejectionForm.get('rejectionMessage')?.value,
+        postId: this.id
+      };
+      console.log("nig nig" + 'Rejecting post:', review);
+      this.reviewService.rejectPost(this.id, review).subscribe({
+        next: () => {
+          console.log('Post rejected successfully');
+          this.router.navigate(['/approvable-posts']);
+        },
+        error: (err) => {
+          console.error('Error rejecting post:', err);
+        }
+      });
+    }
   }
 }

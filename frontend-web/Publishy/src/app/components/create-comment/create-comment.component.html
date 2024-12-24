@@ -1,0 +1,18 @@
+<app-navbar></app-navbar>
+<div class="form-container">
+  <div class="form-fields">
+    <form [formGroup]="commentForm" (ngSubmit)="createComment()">
+      <div class="flex">
+        <label for="commentAuthor">Author:</label>
+        <input id="commentAuthor" formControlName="commentAuthor" type="text" readonly>
+      </div>
+      <div class="flex">
+        <label for="commentMessage">Message:</label>
+        <textarea id="commentMessage" formControlName="commentMessage" required placeholder="Enter your comment"></textarea>
+      </div>
+      <div class="button-group">
+        <button type="submit" [disabled]="commentForm.invalid">Submit Comment</button>
+      </div>
+    </form>
+  </div>
+</div>

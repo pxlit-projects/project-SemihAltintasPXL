@@ -1,8 +1,11 @@
 package be.pxl.services.controller;
 
 import be.pxl.services.domain.dto.RejectPostRequest;
+import be.pxl.services.domain.dto.ReviewResponse;
 import be.pxl.services.service.ReviewService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,6 +22,10 @@ public class ReviewController {
     @PostMapping("/reject/{postId}")
     public void changeConceptToRejected(@PathVariable Long postId, @RequestBody RejectPostRequest rejectPostRequest) {
         reviewService.changeConceptToRejected(postId, rejectPostRequest);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<ReviewResponse> getReviewById(@PathVariable Long id) {
+        return new ResponseEntity<>(reviewService.getReviewById(id), HttpStatus.OK);
     }
 
 }

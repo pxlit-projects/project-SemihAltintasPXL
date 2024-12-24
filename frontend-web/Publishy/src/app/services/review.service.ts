@@ -14,8 +14,10 @@ export class ReviewService {
     return this.http.post(`${this.baseUrl}/approve/${postId}`, {});
   }
   rejectPost(postId: number, review: Review) {
-
-    return this.http.post(`${this.baseUrl}/reject/${postId}`, {review});
+    return this.http.post(`${this.baseUrl}/reject/${postId}`, review);
+  }
+  getReviewsByPostId(postId: number) {
+    return this.http.get(`${this.baseUrl}/${postId}`);
   }
   
 }

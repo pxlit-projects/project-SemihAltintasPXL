@@ -1,3 +1,5 @@
+import { Review } from './../../models/review.module';
+import { ReviewService } from './../../services/review.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PostService } from '../../services/post.service';
@@ -7,6 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from "../navbar/navbar.component";
+import { Post } from '../../models/post.module';
 
 @Component({
   selector: 'app-rejected-posts',
@@ -19,17 +22,21 @@ export class RejectedPostsComponent {
   posts: any[] = [];
   filterType: string = '';
   filterValue: string = '';
+  reviews: { [key: number]: Review } = {};
+  review: Review | undefined; 
 
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService, private reviewService: ReviewService) { }
 
   ngOnInit(): void {
-    this.postService.getAllRejectedPosts().subscribe(data => {
-      console.log(data)
-      this.posts = data;
-    }, error => {
-      console.error('Error fetching posts', error);
+    this.postService.getAllRejectedPosts().subscribe(posts => {
+      this.posts = posts;
+      this.posts.forEach(post => {
+        this.getReviewByPostId(post.id);
+        console.log(this.reviews);
+      });
     });
   }
+
   filteredPosts() {
     return this.posts.filter(post => {
       if (this.filterType === 'content') {
@@ -40,6 +47,12 @@ export class RejectedPostsComponent {
         return post.created === this.filterValue;
       }
       return true;
+    });
+  }
+  getReviewByPostId(postId: number) {
+    this.reviewService.getReviewsByPostId(postId).subscribe({      
+      next: (data) => this.reviews[postId] = data as Review,
+      error: (err) => console.error('Error fetching review:', err)
     });
   }
 }

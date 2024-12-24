@@ -1,4 +1,3 @@
-import { ReviewService } from './../../services/review.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PostService } from '../../services/post.service';
@@ -6,6 +5,9 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } 
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { Router, RouterModule } from '@angular/router';
+import { ReviewService } from '../../services/review.service';
+import { CommentService } from '../../services/comment.service';
+import { Comment } from '../../models/comment.module';
 
 
 @Component({
@@ -21,8 +23,15 @@ export class ApprovablePostsComponent implements OnInit {
   editingPostId: number | null = null;
   filterType: string = '';
   filterValue: string = '';
+  comments: { [key: number]: Comment[] } = {}; 
 
-  constructor(private postService: PostService, private fb: FormBuilder, private snackBar: MatSnackBar, private reviewService : ReviewService) {
+  constructor(
+    private postService: PostService,
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar,
+    private reviewService: ReviewService,
+    private commentService: CommentService 
+  ) {
     this.editForm = this.fb.group({
       title: ['', Validators.required],
       content: ['', Validators.required],
@@ -33,32 +42,38 @@ export class ApprovablePostsComponent implements OnInit {
     this.getPendingPosts();
   }
 
-  approvePost(postId: number): void {
-    console.log('Approving post', postId);
-    this.reviewService.approvePost(postId).subscribe(() => {
-      this.getPendingPosts();
-      this.snackBar.open('Post approved successfully', 'Close', {
-        duration: 5000,
-      });
-    }, error => {
-      console.error('Error approving post', error);
-      this.snackBar.open('Error approving post', 'Close', {
-        duration: 5000,
-      });
+  getPendingPosts(): void {
+    this.postService.getAllPendingPosts().subscribe({
+      next: (data) => {
+        this.posts = data;
+        this.posts.forEach(post => {
+        });
+      },
+      error: (err) => console.error('Error fetching pending posts:', err)
     });
   }
 
-  getPendingPosts(): void {
-    this.postService.getAllPendingPosts().subscribe(data => {
-      this.posts = data;
-    }, error => {
-      console.error('Error fetching pending posts', error);
+  
+
+  approvePost(postId: number): void {
+    this.reviewService.approvePost(postId).subscribe({
+      next: () => {
+        this.getPendingPosts();
+        this.snackBar.open('Post approved successfully', 'Close', {
+          duration: 5000,
+        });
+      },
+      error: (err) => {
+        console.error('Error approving post:', err);
+        this.snackBar.open('Error approving post', 'Close', {
+          duration: 5000,
+        });
+      }
     });
   }
 
   startEditing(post: any): void {
     this.editingPostId = post.id;
-    console.log('Editing post', post);
     this.editForm.setValue({
       title: post.title,
       content: post.content,
@@ -67,17 +82,20 @@ export class ApprovablePostsComponent implements OnInit {
 
   saveEdit(): void {
     if (this.editForm.valid && this.editingPostId !== null) {
-      this.postService.updatePost(this.editingPostId, this.editForm.value).subscribe(() => {
-        this.getPendingPosts(); 
-        this.editingPostId = null; 
-        this.snackBar.open('Post updated successfully', 'Close', {
-          duration: 5000,
-        });
-      }, error => {
-        console.error('Error updating post', error);
-        this.snackBar.open('Error updating post', 'Close', {
-          duration: 5000,
-        });
+      this.postService.updatePost(this.editingPostId, this.editForm.value).subscribe({
+        next: () => {
+          this.getPendingPosts();
+          this.editingPostId = null;
+          this.snackBar.open('Post updated successfully', 'Close', {
+            duration: 5000,
+          });
+        },
+        error: (err) => {
+          console.error('Error updating post:', err);
+          this.snackBar.open('Error updating post', 'Close', {
+            duration: 5000,
+          });
+        }
       });
     }
   }

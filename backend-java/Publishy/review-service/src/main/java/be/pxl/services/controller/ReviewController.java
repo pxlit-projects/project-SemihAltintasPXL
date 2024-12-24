@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/review")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
 public class ReviewController {
     private final ReviewService reviewService;
 
@@ -19,9 +18,9 @@ public class ReviewController {
     public void changeConceptToApproved(@PathVariable Long postId) {
         reviewService.changeConceptToApproved(postId);
     }
-    @PostMapping("/reject/{postId}")
-    public void changeConceptToRejected(@PathVariable Long postId, @RequestBody RejectPostRequest rejectPostRequest) {
-        reviewService.changeConceptToRejected(postId, rejectPostRequest);
+    @PostMapping("/reject")
+    public void changeConceptToRejected(@RequestBody RejectPostRequest rejectPostRequest) {
+        reviewService.changeConceptToRejected(rejectPostRequest);
     }
     @GetMapping("/{id}")
     public ResponseEntity<ReviewResponse> getReviewById(@PathVariable Long id) {

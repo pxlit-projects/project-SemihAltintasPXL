@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RejectPostRequest {
     private String reviewAuthor;
-    private String message;
+    private String reviewMessage;
     private Long postId;
 }

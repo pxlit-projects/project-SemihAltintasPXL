@@ -5,7 +5,7 @@ import be.pxl.services.domain.dto.RejectPostRequest;
 
 public interface IReviewService {
     void changeConceptToApproved(Long postId);
-    void changeConceptToRejected(Long postId, RejectPostRequest rejectPostRequest);
+    void changeConceptToRejected(RejectPostRequest rejectPostRequest);
     Review createReview(RejectPostRequest review);
 
 }

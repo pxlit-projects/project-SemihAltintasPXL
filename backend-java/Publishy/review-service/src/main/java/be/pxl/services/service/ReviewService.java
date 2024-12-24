@@ -21,9 +21,9 @@ public class ReviewService implements IReviewService {
     }
 
     @Override
-    public void changeConceptToRejected(Long postId, RejectPostRequest rejectPostRequest) {
+    public void changeConceptToRejected(RejectPostRequest rejectPostRequest) {
         Review review = createReview(rejectPostRequest);
-        rabbitTemplate.convertAndSend("rejectPostQueue", postId);
+        rabbitTemplate.convertAndSend("rejectPostQueue", rejectPostRequest.getPostId());
         reviewRepository.save(review);
     }
 
@@ -32,7 +32,7 @@ public class ReviewService implements IReviewService {
         Review review = new Review();
         review.setPostId(rejectPostRequest.getPostId());
         review.setReviewAuthor(rejectPostRequest.getReviewAuthor());
-        review.setReviewMessage(rejectPostRequest.getMessage());
+        review.setReviewMessage(rejectPostRequest.getReviewMessage());
         return review;
     }
     public ReviewResponse getReviewById(Long id) {

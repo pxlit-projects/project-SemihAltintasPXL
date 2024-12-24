@@ -18,6 +18,7 @@ export class RejectionMessageComponent implements OnInit {
   id: number = 0;
   Post: any;
   rejectionForm: FormGroup;
+  review!: Review;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,13 +54,13 @@ export class RejectionMessageComponent implements OnInit {
 
   rejectPost(): void {
     if (this.rejectionForm.valid) {
-      const review: Review = {
+      this.review = {
         reviewAuthor: this.rejectionForm.get('author')?.value,
-        message: this.rejectionForm.get('rejectionMessage')?.value,
+        reviewMessage: this.rejectionForm.get('rejectionMessage')?.value,
         postId: this.id
       };
-      console.log("nig nig" + 'Rejecting post:', review);
-      this.reviewService.rejectPost(this.id, review).subscribe({
+      console.log("nig nig" + 'Rejecting post:', this.review);
+      this.reviewService.rejectPosts(this.review).subscribe({
         next: () => {
           console.log('Post rejected successfully');
           this.router.navigate(['/approvable-posts']);

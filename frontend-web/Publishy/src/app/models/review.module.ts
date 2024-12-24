@@ -1,5 +1,5 @@
 export interface Review {
     reviewAuthor: string;
-    message: string;
+    reviewMessage: string;
     postId: number;
 }

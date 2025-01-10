@@ -14,7 +14,6 @@ public interface IPostService {
     void changeConceptToApproved(Long id) throws PostNotFoundException;
     void changeConceptToRejected(Long id) throws PostNotFoundException;
 
-    void deleteAllPosts();
     List<PostResponse> getApprovedPosts();
     List<PostResponse> getPendingPosts();
     List<PostResponse> getRejectedPosts();

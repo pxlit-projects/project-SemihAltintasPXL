@@ -32,22 +32,6 @@ public class PostController {
     public ResponseEntity savePostAsConcept(@RequestBody PostRequest postRequest) {
         return new ResponseEntity<>(postService.savePostAsConcept(postRequest), HttpStatus.CREATED);
     }
-    /*
-    @PutMapping("/approve/{id}")
-    public ResponseEntity<Post> changeConceptToApproved(@PathVariable long id) throws PostNotFoundException {
-        return new ResponseEntity<>(postService.changeConceptToApproved(id) , HttpStatus.OK);
-    }
-    @PutMapping("/reject/{id}")
-    public ResponseEntity<Post> changeConceptToRejected(@PathVariable long id) throws PostNotFoundException {
-        return new ResponseEntity<>(postService.changeConceptToRejected(id) , HttpStatus.OK);
-    }
-
-     */
-    @DeleteMapping
-    public ResponseEntity<Void> deleteAllPosts() {
-        postService.deleteAllPosts();
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
     @GetMapping("/approved")
     public ResponseEntity<List<PostResponse>> getApprovedPosts() {
         return new ResponseEntity<>(postService.getApprovedPosts(), HttpStatus.OK);

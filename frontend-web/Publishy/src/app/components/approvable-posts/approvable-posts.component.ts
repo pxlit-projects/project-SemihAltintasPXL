@@ -23,14 +23,14 @@ export class ApprovablePostsComponent implements OnInit {
   editingPostId: number | null = null;
   filterType: string = '';
   filterValue: string = '';
-  comments: { [key: number]: Comment[] } = {}; 
+  comments: { [key: number]: Comment[] } = {};
 
   constructor(
     private postService: PostService,
     private fb: FormBuilder,
-    private snackBar: MatSnackBar,
+    public snackBar: MatSnackBar,
     private reviewService: ReviewService,
-    private commentService: CommentService 
+    private commentService: CommentService
   ) {
     this.editForm = this.fb.group({
       title: ['', Validators.required],
@@ -53,7 +53,7 @@ export class ApprovablePostsComponent implements OnInit {
     });
   }
 
-  
+
 
   approvePost(postId: number): void {
     this.reviewService.approvePost(postId).subscribe({

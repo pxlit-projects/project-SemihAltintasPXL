@@ -59,7 +59,6 @@ export class RejectionMessageComponent implements OnInit {
         reviewMessage: this.rejectionForm.get('rejectionMessage')?.value,
         postId: this.id
       };
-      console.log("nig nig" + 'Rejecting post:', this.review);
       this.reviewService.rejectPosts(this.review).subscribe({
         next: () => {
           console.log('Post rejected successfully');

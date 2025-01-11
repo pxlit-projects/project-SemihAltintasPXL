@@ -1358,3 +1358,6 @@ Caused by: java.sql.SQLSyntaxErrorException: Unknown database 'postservice_db'
 2025-01-10 05:47:59 INFO  c.n.e.r.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
 2025-01-10 05:48:59 INFO  c.n.e.r.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
 2025-01-10 05:49:13 INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-10 05:49:59 INFO  c.n.e.r.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2025-01-10 05:50:59 INFO  c.n.e.r.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2025-01-10 05:51:06 INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration

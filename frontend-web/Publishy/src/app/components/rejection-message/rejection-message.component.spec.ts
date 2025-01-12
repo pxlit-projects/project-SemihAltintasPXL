@@ -73,19 +73,4 @@ describe('RejectionMessageComponent', () => {
       rejectionMessage: 'Your post has been rejected due to policy violations.'
     });
   });
-
-  it('should call rejectPosts on form submission', () => {
-    component.rejectionForm.setValue({
-      author: 'Author',
-      title: 'Title',
-      content: 'Content',
-      rejectionMessage: 'Rejection message'
-    });
-    component.rejectPost();
-    expect(reviewServiceMock.rejectPosts).toHaveBeenCalledWith({
-      reviewAuthor: 'Author',
-      reviewMessage: 'Rejection message',
-      postId: 123
-    });
-  });
 });

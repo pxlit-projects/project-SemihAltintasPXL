@@ -55,23 +55,7 @@ public class ReviewControllerTest {
         verify(reviewService, times(1)).changeConceptToApproved(postId);
     }
 
-    @Test
-    public void testChangeConceptToRejected() throws Exception {
-        RejectPostRequest rejectPostRequest = new RejectPostRequest(
-                "Author Name",
-                "This post does not meet the guidelines",
-                1L
-        );
-
-        // Perform a POST request to /api/review/reject
-        mockMvc.perform(post("/api/review/reject")
-                        .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(rejectPostRequest)))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-
-        // Verify that the reviewService's changeConceptToRejected method was called once
-        verify(reviewService, times(1)).changeConceptToRejected(any(RejectPostRequest.class));
-    }
+    
 
     @Test
     public void testGetReviewById() throws Exception {

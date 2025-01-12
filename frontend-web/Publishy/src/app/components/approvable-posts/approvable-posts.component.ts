@@ -82,7 +82,8 @@ export class ApprovablePostsComponent implements OnInit {
 
   saveEdit(): void {
     if (this.editForm.valid && this.editingPostId !== null) {
-      this.postService.updatePost(this.editingPostId, this.editForm.value).subscribe({
+      const userRole = localStorage.getItem('role') || '';
+      this.postService.updatePost(this.editingPostId, this.editForm.value, userRole).subscribe({
         next: () => {
           this.getPendingPosts();
           this.editingPostId = null;

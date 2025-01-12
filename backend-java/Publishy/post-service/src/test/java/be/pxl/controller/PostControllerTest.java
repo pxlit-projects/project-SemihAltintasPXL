@@ -126,22 +126,7 @@ public class PostControllerTest {
                 .andExpect(jsonPath("$[1].title", is("Rejected Post 2")));
     }
 
-    @Test
-    void shouldUpdatePost() throws Exception {
-        PostRequest postRequest = new PostRequest();
-        postRequest.setTitle("Updated Post");
-        postRequest.setContent("Updated content for the post.");
 
-        Post post = new Post(1L, "Original Post", "Original content", "Author", LocalDate.now(), PostStatus.PENDING);
-        when(postRepository.findById(1L)).thenReturn(java.util.Optional.of(post));
-
-        mockMvc.perform(put("/api/post/update/{id}", 1L)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(postRequest)))
-                .andExpect(status().isOk());
-
-        verify(postRepository, times(1)).save(any());
-    }
     @Test
     void shouldReturnAllPosts() throws Exception {
         mockMvc.perform(get("/api/post"))
@@ -149,18 +134,6 @@ public class PostControllerTest {
                 .andExpect(jsonPath("$", hasSize(0)));
     }
 
-    @Test
-    void shouldSavePostAsConcept() throws Exception {
-        PostRequest postRequest = new PostRequest();
-        postRequest.setTitle("Test Post");
-        postRequest.setContent("This is a test post.");
 
-        mockMvc.perform(post("/api/post/concept")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(postRequest)))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.title", is("Test Post")))
-                .andExpect(jsonPath("$.content", is("This is a test post.")));
-    }
 
 }

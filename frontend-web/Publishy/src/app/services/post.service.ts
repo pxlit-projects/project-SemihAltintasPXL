@@ -13,11 +13,11 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
 
-  createPostAsConcept(postRequest: any): Observable<any> {
+  createPostAsConcept(postRequest: any, userRole: string): Observable<any> {
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'user-role': userRole
     });
-
     return this.http.post(this.baseUrl + '/concept', postRequest, { headers });
   }
 
@@ -48,9 +48,10 @@ export class PostService {
     });
     return this.http.put<Post>(`${this.baseUrl}/reject/${id}`, {}, {headers });
   }
-  updatePost(id: number, postRequest: any): Observable<void> {
+  updatePost(id: number, postRequest: any, userRole: string): Observable<void> {
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'user-role': userRole
     });
 
     return this.http.put<void>(`${this.baseUrl}/update/${id}`, postRequest, { headers });

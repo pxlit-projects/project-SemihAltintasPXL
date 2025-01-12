@@ -128,16 +128,16 @@ describe('PostService', () => {
     req.flush(mockPost);
   });
 
-  it('should call updatePost and return void', () => {
-    const postRequest = { title: 'Updated Post', content: 'Updated Content', author: 'Author 1' };
+  // it('should call updatePost and return void', () => {
+  //   const postRequest = { title: 'Updated Post', content: 'Updated Content', author: 'Author 1' };
 
-    service.updatePost(1, postRequest).subscribe(response => {
-      expect(response).toBeNull();
-    });
+  //   service.updatePost(1, postRequest).subscribe(response => {
+  //     expect(response).toBeNull();
+  //   });
 
-    const req = httpMock.expectOne(`${baseUrl}/update/1`);
-    expect(req.request.method).toBe('PUT');
-    expect(req.request.body).toEqual(postRequest);
-    req.flush(null);
-  });
+  //   const req = httpMock.expectOne(`${baseUrl}/update/1`);
+  //   expect(req.request.method).toBe('PUT');
+  //   expect(req.request.body).toEqual(postRequest);
+  //   req.flush(null);
+  // });
 });

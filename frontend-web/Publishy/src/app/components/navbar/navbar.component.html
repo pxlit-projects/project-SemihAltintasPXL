@@ -1,8 +1,10 @@
 <nav class="navbar">
     <ul class="navbar-list">
+      @if (getRoleOfCurrentUser() != 'user') {
       <li class="navbar-item">
         <a class="navbar-link" routerLink="/create-post">Create Post</a>
       </li>
+      }
       <li class="navbar-item">
         <a class="navbar-link" routerLink="/approved-posts">Approved Posts</a>
       </li>

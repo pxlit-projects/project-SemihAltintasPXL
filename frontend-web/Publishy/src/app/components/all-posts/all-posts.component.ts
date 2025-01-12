@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup } from '@angular/forms'; // Import FormBuilder and FormGroup
+import { FormBuilder, FormGroup } from '@angular/forms'; 
 import { CommentService } from './../../services/comment.service';
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -7,16 +7,20 @@ import { Comment } from './../../models/comment.module';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import {Observable} from "rxjs";
+import { MatSnackBar } from '@angular/material/snack-bar'; 
 
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { AuthService } from '../../services/auth-service.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 @Component({
   selector: 'app-all-posts',
   templateUrl: './all-posts.component.html',
   styleUrls: ['./all-posts.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, NavbarComponent, RouterModule]
+  imports: [BrowserAnimationsModule, CommonModule, FormsModule, ReactiveFormsModule, NavbarComponent, RouterModule]
 })
 export class AllPostsComponent implements OnInit {
   posts: any[] = [];
@@ -27,12 +31,11 @@ export class AllPostsComponent implements OnInit {
   commentForm: FormGroup;
   authService: AuthService = inject(AuthService);
 
-  constructor(private postService: PostService, private commentService: CommentService, private fb: FormBuilder) {
+  constructor(private postService: PostService, private commentService: CommentService, private fb: FormBuilder, private snackBar: MatSnackBar) { // Inject MatSnackBar
     this.commentForm = this.fb.group({
       commentId: [''],
       commentMessage: ['']
     });
-    
   }
 
   ngOnInit(): void {
@@ -62,6 +65,7 @@ export class AllPostsComponent implements OnInit {
   createComment(comment: Comment) {
     this.commentService.createComment(comment).subscribe(data => {
       console.log(data);
+      this.snackBar.open('Comment created successfully', 'Close', { duration: 3000 }); 
     }, error => {
       console.error('Error creating comment', error);
     });

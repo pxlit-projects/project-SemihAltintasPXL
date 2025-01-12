@@ -29,8 +29,13 @@ public class PostController {
     }
 
     @PostMapping("/concept")
-    public ResponseEntity savePostAsConcept(@RequestBody PostRequest postRequest) {
-        return new ResponseEntity<>(postService.savePostAsConcept(postRequest), HttpStatus.CREATED);
+    public ResponseEntity savePostAsConcept(@RequestHeader("user-role") String userRole, @RequestBody PostRequest postRequest) {
+        if (!userRole.equals("editor")) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        else {
+            return new ResponseEntity<>(postService.savePostAsConcept(postRequest), HttpStatus.CREATED);
+        }
     }
     @GetMapping("/approved")
     public ResponseEntity<List<PostResponse>> getApprovedPosts() {
@@ -45,8 +50,14 @@ public class PostController {
         return new ResponseEntity<>(postService.getRejectedPosts(), HttpStatus.OK);
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<Void> updatePost(@PathVariable Long id, @RequestBody PostRequest postRequest) throws PostNotFoundException {
-        postService.updatePost(id, postRequest);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Void> updatePost(@RequestHeader("user-role") String userRole, @PathVariable Long id, @RequestBody PostRequest postRequest) throws PostNotFoundException {
+        if (!userRole.equals("editor")) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        else {
+            postService.updatePost(id, postRequest);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
     }
 }

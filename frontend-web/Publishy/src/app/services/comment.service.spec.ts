@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CommentService } from './comment.service';
-import { Comment } from '../models/comment.module';  // Import the Comment class
+import { Comment } from '../models/comment.module';
 import { environment } from '../../environments/environment';
 
 describe('CommentService', () => {
@@ -20,7 +20,7 @@ describe('CommentService', () => {
   });
 
   afterEach(() => {
-    httpMock.verify();  // Ensure there are no pending requests after each test
+    httpMock.verify(); 
   });
 
   it('should be created', () => {
@@ -29,7 +29,7 @@ describe('CommentService', () => {
 
   it('should call createComment and return the created comment', () => {
     const mockComment: Comment = new Comment('Author 1', 'This is a comment', 1);
-    mockComment.id = 1;  // Simulating an ID being returned after creation
+    mockComment.id = 1;  
 
     service.createComment(mockComment).subscribe(comment => {
       expect(comment).toEqual(mockComment);
@@ -38,7 +38,7 @@ describe('CommentService', () => {
     const req = httpMock.expectOne(`${baseUrl}/create`);
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(mockComment);
-    req.flush(mockComment);  // Mocking the response
+    req.flush(mockComment); 
   });
 
 
@@ -51,7 +51,7 @@ describe('CommentService', () => {
 
     const req = httpMock.expectOne(`${baseUrl}/1`);
     expect(req.request.method).toBe('DELETE');
-    req.flush(null);  // Mocking a successful deletion with no response body
+    req.flush(null);  
   });
 
   it('should call updateComment and return the updated comment', () => {
@@ -65,6 +65,6 @@ describe('CommentService', () => {
     const req = httpMock.expectOne(`${baseUrl}/1`);
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual(updatedComment);
-    req.flush(updatedComment);  // Mocking the response
+    req.flush(updatedComment); 
   });
 });

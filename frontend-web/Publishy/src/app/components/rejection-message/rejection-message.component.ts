@@ -59,7 +59,8 @@ export class RejectionMessageComponent implements OnInit {
         reviewMessage: this.rejectionForm.get('rejectionMessage')?.value,
         postId: this.id
       };
-      this.reviewService.rejectPosts(this.review).subscribe({
+      const userRole = localStorage.getItem('role') || '';
+      this.reviewService.rejectPosts(this.review, userRole).subscribe({
         next: () => {
           console.log('Post rejected successfully');
           this.router.navigate(['/approvable-posts']);

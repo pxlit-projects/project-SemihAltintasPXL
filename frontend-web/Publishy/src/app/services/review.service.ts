@@ -15,8 +15,13 @@ export class ReviewService {
   approvePost(postId: number) {
     return this.http.post(`${this.baseUrl}/approve/${postId}`, {});
   }
-  rejectPosts(review: Review) {
-    return this.http.post(`${this.baseUrl}/reject`, review);
+  rejectPosts(review: Review, userRole: string) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'user-role': userRole
+    });
+
+    return this.http.post(`${this.baseUrl}/reject`, review, { headers });
   }
   getReviewsByPostId(postId: number) {
     return this.http.get(`${this.baseUrl}/${postId}`);

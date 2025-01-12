@@ -19,7 +19,7 @@ export class NavbarComponent {
     this.router.navigate(['']);
   }
   getRoleOfCurrentUser(): any {
-    localStorage.getItem('role');
+    return localStorage.getItem('role');
   }
 
 }

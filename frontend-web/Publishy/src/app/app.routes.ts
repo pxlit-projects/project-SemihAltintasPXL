@@ -7,15 +7,16 @@ import { LoginComponent } from './components/login/login.component';
 import { RejectedPostsComponent } from './components/rejected-posts/rejected-posts.component';
 import { RejectionMessageComponent } from './components/rejection-message/rejection-message.component';
 import { CreateCommentComponent } from './components/create-comment/create-comment.component';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
-  { path: 'create-post', component: CreatePostComponent },
-  { path: 'approved-posts', component: AllPostsComponent },
-  { path: 'approvable-posts', component: ApprovablePostsComponent },
-  { path: 'rejected-posts', component: RejectedPostsComponent },
-  { path: 'rejection-message/:id', component: RejectionMessageComponent },
-  { path: 'create-comment/:id', component: CreateCommentComponent },
-  { path: '', component: LoginComponent },
+  { path: 'create-post', component: CreatePostComponent, canActivate: [AuthGuard] },
+  { path: 'approved-posts', component: AllPostsComponent, canActivate: [AuthGuard]},
+  { path: 'approvable-posts', component: ApprovablePostsComponent , canActivate: [AuthGuard]},
+  { path: 'rejected-posts', component: RejectedPostsComponent , canActivate: [AuthGuard]},
+  { path: 'rejection-message/:id', component: RejectionMessageComponent , canActivate: [AuthGuard]},
+  { path: 'create-comment/:id', component: CreateCommentComponent , canActivate: [AuthGuard]},
+  { path: '', component: LoginComponent},
 ];
 
 @NgModule({

@@ -19,8 +19,13 @@ public class ReviewController {
         reviewService.changeConceptToApproved(postId);
     }
     @PostMapping("/reject")
-    public void changeConceptToRejected(@RequestBody RejectPostRequest rejectPostRequest) {
-        reviewService.changeConceptToRejected(rejectPostRequest);
+    public void changeConceptToRejected(@RequestHeader("user-role") String userRole, @RequestBody RejectPostRequest rejectPostRequest) {
+        if (!userRole.equals("editor")) {
+            throw new RuntimeException("Only editor can reject posts.");
+        }
+        else {
+            reviewService.changeConceptToRejected(rejectPostRequest);
+        }
     }
     @GetMapping("/{id}")
     public ResponseEntity<ReviewResponse> getReviewById(@PathVariable Long id) {
